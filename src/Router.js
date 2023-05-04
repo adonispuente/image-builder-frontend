@@ -5,11 +5,12 @@ import AsyncComponent from '@redhat-cloud-services/frontend-components/AsyncComp
 import ErrorState from '@redhat-cloud-services/frontend-components/ErrorState';
 import { useFlag } from '@unleash/proxy-client-react';
 import axios from 'axios';
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 
 import EdgeImageDetail from './Components/edge/ImageDetails';
 import ShareImageModal from './Components/ShareImageModal/ShareImageModal';
 import { manageEdgeImagesUrlName } from './Utilities/edge';
+import { resolveRelPath } from './Utilities/path';
 
 const LandingPage = lazy(() => import('./Components/LandingPage/LandingPage'));
 const CreateImageWizard = lazy(() =>
@@ -50,6 +51,18 @@ export const Router = () => {
           scope="dashboard"
           ErrorComponent={<ErrorState />}
           app="Images"
+          appId="malware_zero_state"
+          customTitle="Start building images now"
+          customText="Create your image by using the Image Builder wizard."
+          customButton={
+            <Link
+              to={resolveRelPath('imagewizard')}
+              className="pf-c-button pf-m-primary"
+              data-testid="create-image-action"
+            >
+              Create image
+            </Link>
+          }
         />
       ) : (
         <Routes>
